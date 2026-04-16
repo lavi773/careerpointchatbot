@@ -44,15 +44,15 @@ const HomePage = () => (
     </section>
 
     {/* Features */}
-    <section className="container mx-auto px-4 py-20">
-      <h2 className="font-heading text-3xl font-bold text-center mb-12">
-        How can <span className="text-gradient">UniBot</span> help you?
+    <section className="container mx-auto px-4 py-12 sm:py-20">
+      <h2 className="font-heading text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-12">
+        How can <span className="text-gradient">CPU Bot</span> help you?
       </h2>
-      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
         {features.map((f) => (
           <div
             key={f.title}
-            className="group bg-card rounded-2xl p-6 border border-border hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+            className="group bg-card rounded-2xl p-5 sm:p-6 border border-border hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
           >
             <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${f.color} flex items-center justify-center mb-4`}>
               <f.icon className="w-6 h-6 text-primary-foreground" />
@@ -65,12 +65,12 @@ const HomePage = () => (
     </section>
 
     {/* CTA */}
-    <section className="gradient-primary py-16">
+    <section className="gradient-primary py-12 sm:py-16">
       <div className="container mx-auto px-4 text-center">
-        <h2 className="font-heading text-3xl font-bold text-primary-foreground mb-4">
+        <h2 className="font-heading text-2xl sm:text-3xl font-bold text-primary-foreground mb-4">
           Ready to get answers? 🚀
         </h2>
-        <p className="text-primary-foreground/80 mb-8 max-w-lg mx-auto">
+        <p className="text-sm sm:text-base text-primary-foreground/85 mb-8 max-w-lg mx-auto px-2">
           No waiting in lines. No missed office hours. Just instant, accurate answers — anytime.
         </p>
         <Link
