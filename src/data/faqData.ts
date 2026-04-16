@@ -182,6 +182,131 @@ export const faqData: FAQ[] = [
     patterns: ["bye", "goodbye", "see you later", "take care", "bye bye"],
     response: "👋 Goodbye! Have a wonderful day ahead! Remember, I'm always here whenever you need help. See you soon! 🌈✨"
   },
+  // Placement & Career
+  {
+    id: 25,
+    intent: "placement",
+    keywords: ["placement", "job", "company", "recruit", "offer", "package", "career"],
+    patterns: ["placement details", "which companies visit", "average package", "highest package", "placement record"],
+    response: "💼 Career Point University placement highlights:\n- **Top Recruiters**: TCS, Infosys, Wipro, Cognizant, Accenture, HCL, Capgemini\n- **Average Package**: ₹4.5 LPA\n- **Highest Package**: ₹18 LPA (2024 batch)\n- **Placement Rate**: 85%+ for eligible students\n\nVisit the **Training & Placement Cell** in Block A or email **placement@cpu.edu.in** to register! 🚀"
+  },
+  {
+    id: 26,
+    intent: "internship",
+    keywords: ["internship", "intern", "summer", "training", "industry"],
+    patterns: ["how to get internship", "internship opportunities", "summer training", "industry training"],
+    response: "🎯 Internship opportunities at CPU:\n- **Duration**: 6 weeks (summer) or 6 months (final year)\n- **Stipend**: ₹5,000 - ₹25,000/month (varies by company)\n- **Register**: Through T&P Cell or apply via Internshala/LinkedIn\n- **Mandatory**: 1 internship before final year\n\nContact your Faculty Mentor for guidance! 💡"
+  },
+  // Courses
+  {
+    id: 27,
+    intent: "courses_offered",
+    keywords: ["courses", "programs", "offer", "available", "stream", "branch"],
+    patterns: ["what courses are offered", "list of courses", "available programs", "which streams"],
+    response: "📚 Courses offered at Career Point University:\n\n**UG Programs**: B.Tech (CSE, ME, EE, CE), BCA, BBA, B.Sc, B.Com, B.Pharm, B.Ed\n**PG Programs**: M.Tech, MCA, MBA, M.Sc, M.Com\n**Doctoral**: Ph.D in all major disciplines\n**Diploma**: Polytechnic in Engineering\n\nVisit **cpu.edu.in/programs** for full details! 🎓"
+  },
+  {
+    id: 28,
+    intent: "course_duration",
+    keywords: ["duration", "years", "long", "course", "complete", "btech", "mba", "bca"],
+    patterns: ["how long is the course", "course duration", "btech duration", "how many years"],
+    response: "⏳ Course durations:\n- **B.Tech / B.Pharm**: 4 years (8 semesters)\n- **BCA / BBA / B.Sc / B.Com**: 3 years (6 semesters)\n- **MBA / MCA**: 2 years (4 semesters)\n- **M.Tech / M.Sc**: 2 years (4 semesters)\n- **Diploma**: 3 years\n- **Ph.D**: 3-5 years\n\nAll programs follow CBCS (Choice Based Credit System) 📖"
+  },
+  // Sports & Clubs
+  {
+    id: 29,
+    intent: "sports",
+    keywords: ["sports", "play", "ground", "gym", "fitness", "game", "facilities"],
+    patterns: ["sports facilities", "is there a gym", "playground", "sports available"],
+    response: "⚽ Sports facilities at CPU:\n- **Outdoor**: Cricket, Football, Basketball, Volleyball, Athletics track\n- **Indoor**: Badminton, Table Tennis, Chess, Carrom\n- **Gym**: Modern fitness center (free for students)\n- **Annual Sports Meet**: Held every February\n\nJoin the **Sports Club** at the Sports Office in Block D! 🏆"
+  },
+  {
+    id: 30,
+    intent: "clubs",
+    keywords: ["club", "society", "join", "extracurricular", "activities"],
+    patterns: ["which clubs are there", "how to join clubs", "student societies", "extracurricular activities"],
+    response: "🎭 Student clubs at CPU:\n- **Tech**: Coding Club, Robotics Club, AI/ML Society\n- **Cultural**: Music, Dance, Drama, Photography\n- **Literary**: Debate, Quiz, Editorial Board\n- **Social**: NSS, NCC, Eco Club\n- **Entrepreneurship**: E-Cell\n\nClub registrations open in **August**. Watch the notice board! 🌟"
+  },
+  // Transport
+  {
+    id: 31,
+    intent: "transport",
+    keywords: ["bus", "transport", "shuttle", "route", "pickup", "vehicle"],
+    patterns: ["is bus available", "transport facility", "bus routes", "college bus"],
+    response: "🚌 University Transport:\n- **Coverage**: 25+ routes across the city & nearby towns\n- **Annual Fee**: ₹12,000 - ₹18,000 (depends on distance)\n- **Timing**: Pickup 7:30 AM | Drop 5:00 PM\n- **Apply**: Transport Office (Block B) with route preference\n\nDownload the **CPU Transport App** for live bus tracking! 📍"
+  },
+  // Canteen & Food
+  {
+    id: 32,
+    intent: "canteen",
+    keywords: ["canteen", "food", "mess", "eat", "cafe", "cafeteria"],
+    patterns: ["where is the canteen", "food options", "canteen timing", "what food is available"],
+    response: "🍽️ Food on campus:\n- **Main Canteen**: Block A — North/South Indian, Chinese, Snacks (8 AM - 8 PM)\n- **Cafe**: Block C — Coffee, sandwiches, fast food\n- **Mess**: Hostel — 3 meals/day (veg & non-veg)\n- **Average Meal Cost**: ₹50 - ₹120\n\nMonthly mess pass available for hostel students! 🥗"
+  },
+  // Medical
+  {
+    id: 33,
+    intent: "medical",
+    keywords: ["medical", "doctor", "hospital", "sick", "ill", "emergency", "ambulance"],
+    patterns: ["medical facility", "is there a doctor", "what to do if i'm sick", "medical emergency"],
+    response: "🏥 Medical facilities:\n- **Health Center**: Block A, Ground Floor (Mon-Sat, 9 AM - 6 PM)\n- **Doctor**: Available on-call 24/7 for hostel students\n- **Ambulance**: Free service to nearby hospital\n- **Tie-up Hospital**: Apollo Clinic (5 km away) — cashless treatment with student ID\n\n**Emergency**: Call **+91-1234-567800** anytime! 🚨"
+  },
+  // Lost ID / Documents
+  {
+    id: 34,
+    intent: "lost_id",
+    keywords: ["lost", "id", "card", "missing", "stolen", "duplicate"],
+    patterns: ["lost my id card", "how to get duplicate id", "id card stolen"],
+    response: "😟 Lost your ID card? Don't worry!\n1. File an **FIR** at the local police station\n2. Bring FIR copy + ₹200 fee + 1 passport photo to **Student Section**\n3. Fill the duplicate ID card application\n4. Collect new card in **5-7 working days**\n\nMeanwhile, carry the FIR copy as proof on campus! 🪪"
+  },
+  // Bonafide / Certificates
+  {
+    id: 35,
+    intent: "bonafide",
+    keywords: ["bonafide", "certificate", "character", "course", "completion"],
+    patterns: ["how to get bonafide certificate", "character certificate", "course completion certificate"],
+    response: "📃 To get certificates:\n1. Apply at the **Academic Section** (Block B)\n2. Fill request form (₹50 per certificate)\n3. Attach: ID card copy + valid reason\n4. Collect in **3-5 working days**\n\nAvailable certificates: Bonafide, Character, Course Completion, Provisional, Transcript 📋"
+  },
+  // Holidays / Calendar
+  {
+    id: 36,
+    intent: "holidays",
+    keywords: ["holiday", "vacation", "break", "calendar", "leave", "off"],
+    patterns: ["when is the holiday", "academic calendar", "winter break", "summer vacation"],
+    response: "🎉 Academic calendar highlights:\n- **Winter Break**: Dec 20 - Jan 5\n- **Summer Vacation**: May 20 - July 10\n- **Diwali Break**: 5 days (October/November)\n- **Holi Break**: 2 days (March)\n- **National Holidays**: All gazetted holidays observed\n\nFull calendar at **cpu.edu.in/calendar** 📅"
+  },
+  // Wifi on campus
+  {
+    id: 37,
+    intent: "campus_wifi",
+    keywords: ["wifi", "internet", "campus", "wi-fi", "connect"],
+    patterns: ["how to connect to campus wifi", "wifi password", "campus internet"],
+    response: "📶 Campus Wi-Fi access:\n1. Connect to **CPU-Campus** SSID\n2. Open browser → redirected to login page\n3. Login with **University ID** & **Date of Birth** (default password)\n4. Change password on first login\n\nIssues? Email **wifi@cpu.edu.in** or visit IT Helpdesk! 💻"
+  },
+  // Result
+  {
+    id: 38,
+    intent: "result",
+    keywords: ["result", "marks", "grade", "score", "declare", "check"],
+    patterns: ["when will result be declared", "how to check result", "where to see marks", "result date"],
+    response: "📊 Results information:\n- **Declaration**: Within 30-45 days of last exam\n- **Check at**: **portal.cpu.edu.in → Examination → Results**\n- **Login with**: Roll Number + Date of Birth\n- **SMS Alert**: Auto-sent to registered mobile\n\nFor mark sheet collection, visit Examination Cell after 15 days! 📜"
+  },
+  // Anti-ragging
+  {
+    id: 39,
+    intent: "ragging",
+    keywords: ["ragging", "bully", "harass", "complain", "report"],
+    patterns: ["how to report ragging", "anti-ragging helpline", "ragging complaint"],
+    response: "🛡️ CPU has a **strict zero-tolerance** policy on ragging.\n\n**Report Ragging**:\n- 📞 Anti-Ragging Helpline: **1800-180-5522** (24/7)\n- 📧 Email: **antiragging@cpu.edu.in**\n- 🏢 Visit: Anti-Ragging Cell (Block A, Room 105)\n- 🔒 All complaints are 100% confidential\n\nYour safety is our priority! 💙"
+  },
+  // About University
+  {
+    id: 40,
+    intent: "about",
+    keywords: ["about", "university", "cpu", "career", "point", "history", "established"],
+    patterns: ["about career point university", "tell me about cpu", "university history", "when was it established"],
+    response: "🏛️ **Career Point University (CPU)**\n- **Established**: 2012\n- **Location**: Knowledge Park, New Delhi\n- **Recognition**: UGC approved, NAAC accredited\n- **Campus**: 50+ acres lush green campus\n- **Students**: 10,000+ across all programs\n- **Faculty**: 500+ qualified professors\n\nA premier institution shaping tomorrow's leaders! 🌟"
+  },
 ];
 
 export const fallbackResponses = [
