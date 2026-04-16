@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight, BookOpen, CreditCard, Building, HelpCircle } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import FloatingChatButton from "@/components/FloatingChatButton";
+import Footer from "@/components/Footer";
 import botAvatar from "@/assets/bot-avatar.png";
 import cpuLogo from "@/assets/cpu-logo.png";
 import heroCampus from "@/assets/cpu-campus.webp";
