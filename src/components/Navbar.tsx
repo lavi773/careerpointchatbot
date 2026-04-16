@@ -17,6 +17,7 @@ const Navbar = () => {
     { to: "/", label: "Home" },
     { to: "/chat", label: "Chatbot" },
     { to: "/history", label: "History" },
+    { to: "/memory", label: "Memory" },
     { to: "/contact", label: "Contact" },
   ];
 
