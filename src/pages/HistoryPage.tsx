@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Trash2, Clock, MessageSquare, Search } from "lucide-react";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import { getHistory, clearHistory } from "@/lib/nlpEngine";
 
 interface HistoryItem {
@@ -46,8 +47,9 @@ const HistoryPage = () => {
   const grouped = groupByDay(filtered.slice(0, 50));
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background flex flex-col">
       <Navbar />
+      <div className="flex-1">
       <div className="container mx-auto px-4 py-6 sm:py-8 max-w-3xl">
         <div className="flex items-center justify-between mb-6 gap-3 flex-wrap">
           <div>
@@ -133,6 +135,8 @@ const HistoryPage = () => {
           </div>
         )}
       </div>
+      </div>
+      <Footer />
     </div>
   );
 };
