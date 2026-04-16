@@ -91,6 +91,7 @@ const HomePage = () => (
       </div>
     </section>
 
+    <Footer />
     <FloatingChatButton />
   </div>
 );

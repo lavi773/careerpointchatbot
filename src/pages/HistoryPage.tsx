@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Trash2, Clock, MessageSquare, Search } from "lucide-react";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import { getHistory, clearHistory } from "@/lib/nlpEngine";
 
 interface HistoryItem {
