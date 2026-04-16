@@ -9,7 +9,7 @@ const ChatInterface = () => {
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       id: "welcome",
-      text: "👋 Hello! I'm **UniBot**, your university assistant! 🎓\n\nAsk me anything about exams, fees, hostel, admissions, or campus life. I'm here to help! 😊",
+      text: "👋 Hello! I'm **CPU Bot**, the official Career Point University assistant! 🎓\n\nAsk me about exams, fees, hostel, admissions, placements, courses, or campus life. I'm here to help! 😊",
       sender: "bot",
       timestamp: new Date(),
     },
