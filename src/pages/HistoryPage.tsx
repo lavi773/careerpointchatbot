@@ -135,6 +135,8 @@ const HistoryPage = () => {
           </div>
         )}
       </div>
+      </div>
+      <Footer />
     </div>
   );
 };
