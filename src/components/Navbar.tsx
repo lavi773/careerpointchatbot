@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
-import botAvatar from "@/assets/bot-avatar.png";
+import cpuLogo from "@/assets/cpu-logo.png";
 import ThemeToggle from "./ThemeToggle";
 
 const Navbar = () => {
@@ -19,7 +19,7 @@ const Navbar = () => {
     <nav className="sticky top-0 z-50 backdrop-blur-xl border-b border-border/50 bg-card/80">
       <div className="container mx-auto flex items-center justify-between py-3 px-4">
         <Link to="/" className="flex items-center gap-2 min-w-0" onClick={() => setOpen(false)}>
-          <img src={botAvatar} alt="CPU Bot" className="w-8 h-8 sm:w-9 sm:h-9 flex-shrink-0" />
+          <img src={cpuLogo} alt="Career Point University" className="w-9 h-9 sm:w-10 sm:h-10 flex-shrink-0 rounded-full bg-card object-contain" />
           <span className="font-heading font-bold text-sm sm:text-base text-gradient truncate">
             Career Point University
           </span>
