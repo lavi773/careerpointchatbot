@@ -40,7 +40,7 @@ const AuthPage = () => {
         const { error } = await supabase.auth.signUp({
           email: parsed.data.email,
           password: parsed.data.password,
-          options: { emailRedirectTo: `${window.location.origin}/chat` },
+          options: { emailRedirectTo: `${window.location.origin}/` },
         });
         if (error) throw error;
         toast({ title: "Welcome to CPU! 🎓", description: "Account created. Logging you in..." });
@@ -66,7 +66,7 @@ const AuthPage = () => {
   const handleGoogle = async () => {
     setLoading(true);
     const result = await lovable.auth.signInWithOAuth("google", {
-      redirect_uri: `${window.location.origin}/chat`,
+      redirect_uri: `${window.location.origin}/`,
     });
     if (result.error) {
       toast({ title: "Google sign-in failed", description: result.error.message, variant: "destructive" });
