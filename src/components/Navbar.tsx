@@ -1,8 +1,12 @@
+import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { Menu, X } from "lucide-react";
 import botAvatar from "@/assets/bot-avatar.png";
+import ThemeToggle from "./ThemeToggle";
 
 const Navbar = () => {
   const location = useLocation();
+  const [open, setOpen] = useState(false);
 
   const links = [
     { to: "/", label: "Home" },
@@ -14,11 +18,15 @@ const Navbar = () => {
   return (
     <nav className="sticky top-0 z-50 backdrop-blur-xl border-b border-border/50 bg-card/80">
       <div className="container mx-auto flex items-center justify-between py-3 px-4">
-        <Link to="/" className="flex items-center gap-2">
-          <img src={botAvatar} alt="UniBot" className="w-9 h-9" />
-          <span className="font-heading font-bold text-xl text-gradient">UniBot</span>
+        <Link to="/" className="flex items-center gap-2 min-w-0" onClick={() => setOpen(false)}>
+          <img src={botAvatar} alt="CPU Bot" className="w-8 h-8 sm:w-9 sm:h-9 flex-shrink-0" />
+          <span className="font-heading font-bold text-sm sm:text-base text-gradient truncate">
+            Career Point University
+          </span>
         </Link>
-        <div className="flex items-center gap-1">
+
+        {/* Desktop nav */}
+        <div className="hidden md:flex items-center gap-1">
           {links.map((link) => (
             <Link
               key={link.to}
@@ -32,8 +40,43 @@ const Navbar = () => {
               {link.label}
             </Link>
           ))}
+          <ThemeToggle />
+        </div>
+
+        {/* Mobile menu button */}
+        <div className="flex md:hidden items-center gap-1">
+          <ThemeToggle />
+          <button
+            onClick={() => setOpen(!open)}
+            aria-label="Toggle menu"
+            className="p-2 rounded-lg hover:bg-muted transition-colors"
+          >
+            {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
         </div>
       </div>
+
+      {/* Mobile drawer */}
+      {open && (
+        <div className="md:hidden border-t border-border bg-card/95 backdrop-blur-xl animate-fade-in">
+          <div className="container mx-auto px-4 py-2 flex flex-col gap-1">
+            {links.map((link) => (
+              <Link
+                key={link.to}
+                to={link.to}
+                onClick={() => setOpen(false)}
+                className={`px-4 py-2.5 rounded-lg text-sm font-medium transition-all ${
+                  location.pathname === link.to
+                    ? "gradient-primary text-primary-foreground"
+                    : "text-muted-foreground hover:bg-muted"
+                }`}
+              >
+                {link.label}
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
     </nav>
   );
 };
