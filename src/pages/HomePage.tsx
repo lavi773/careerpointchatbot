@@ -3,7 +3,8 @@ import { ArrowRight, BookOpen, CreditCard, Building, HelpCircle } from "lucide-r
 import Navbar from "@/components/Navbar";
 import FloatingChatButton from "@/components/FloatingChatButton";
 import botAvatar from "@/assets/bot-avatar.png";
-import heroCampus from "@/assets/hero-campus.jpg";
+import cpuLogo from "@/assets/cpu-logo.png";
+import heroCampus from "@/assets/cpu-campus.webp";
 
 const features = [
   { icon: BookOpen, title: "Academic Help", desc: "Exams, timetable, attendance & more", color: "from-primary to-accent" },
