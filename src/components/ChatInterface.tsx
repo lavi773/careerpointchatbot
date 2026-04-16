@@ -2,14 +2,18 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import { Send, Mic, MicOff } from "lucide-react";
 import ChatBubble from "./ChatBubble";
 import TypingIndicator from "./TypingIndicator";
-import { processQuery, saveToHistory, type ChatMessage } from "@/lib/nlpEngine";
+import { processQuery, type ChatMessage } from "@/lib/nlpEngine";
 import { quickActions } from "@/data/faqData";
+import { useAuth } from "@/contexts/AuthContext";
+import { supabase } from "@/integrations/supabase/client";
+import { fetchMemory, setMemory, answerFromMemory, extractTeaching, type MemoryMap } from "@/lib/memoryEngine";
 
 const ChatInterface = () => {
+  const { user } = useAuth();
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       id: "welcome",
-      text: "👋 Hello! I'm **CPU Bot**, the official Career Point University assistant! 🎓\n\nAsk me about exams, fees, hostel, admissions, placements, courses, or campus life. I'm here to help! 😊",
+      text: `👋 Hi${user?.email ? ` **${user.email.split("@")[0]}**` : ""}! I'm **CPU Bot** 🎓\n\nAsk me about exams, fees, hostel, placements, courses, or campus life. I also remember things you teach me — try saying *"our viva is on 30 April"*. 😊`,
       sender: "bot",
       timestamp: new Date(),
     },
@@ -17,21 +21,39 @@ const ChatInterface = () => {
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const [isListening, setIsListening] = useState(false);
+  const [memory, setMemoryState] = useState<MemoryMap>({});
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const recognitionRef = useRef<any>(null);
 
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
+  // Load memory + recent chat history for this user
+  useEffect(() => {
+    if (!user) return;
+    fetchMemory(user.id).then(setMemoryState);
+    supabase
+      .from("chat_messages")
+      .select("id, question, answer, created_at")
+      .eq("user_id", user.id)
+      .order("created_at", { ascending: true })
+      .limit(50)
+      .then(({ data }) => {
+        if (!data || data.length === 0) return;
+        const restored: ChatMessage[] = [];
+        for (const row of data) {
+          restored.push({ id: `u-${row.id}`, text: row.question, sender: "user", timestamp: new Date(row.created_at) });
+          restored.push({ id: `b-${row.id}`, text: row.answer, sender: "bot", timestamp: new Date(row.created_at) });
+        }
+        setMessages((prev) => [prev[0], ...restored]);
+      });
+  }, [user]);
 
   useEffect(() => {
-    scrollToBottom();
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, isTyping]);
 
   const handleSend = useCallback(
     (text?: string) => {
       const query = (text || input).trim();
-      if (!query) return;
+      if (!query || !user) return;
 
       const userMsg: ChatMessage = {
         id: Date.now().toString(),
@@ -39,13 +61,26 @@ const ChatInterface = () => {
         sender: "user",
         timestamp: new Date(),
       };
-
       setMessages((prev) => [...prev, userMsg]);
       setInput("");
       setIsTyping(true);
 
-      setTimeout(() => {
-        const response = processQuery(query);
+      setTimeout(async () => {
+        // 1) Detect teaching ("our viva is on 30 April")
+        const teaching = extractTeaching(query);
+        let response: string;
+
+        if (teaching) {
+          await setMemory(user.id, teaching.key, teaching.value);
+          setMemoryState((m) => ({ ...m, [teaching.key]: teaching.value }));
+          response = `✅ Got it! I'll remember that **${teaching.key.replace(/_/g, " ")}** is **${teaching.value}**.`;
+        } else {
+          // 2) Try memory
+          const memAns = answerFromMemory(query, memory);
+          // 3) Fallback to FAQ NLP
+          response = memAns ?? processQuery(query);
+        }
+
         const botMsg: ChatMessage = {
           id: (Date.now() + 1).toString(),
           text: response,
@@ -54,10 +89,12 @@ const ChatInterface = () => {
         };
         setMessages((prev) => [...prev, botMsg]);
         setIsTyping(false);
-        saveToHistory(query, response);
-      }, 800 + Math.random() * 700);
+
+        // Persist to DB
+        await supabase.from("chat_messages").insert({ user_id: user.id, question: query, answer: response });
+      }, 600 + Math.random() * 500);
     },
-    [input]
+    [input, user, memory]
   );
 
   const toggleVoice = () => {
@@ -65,27 +102,22 @@ const ChatInterface = () => {
       alert("Speech recognition not supported in this browser. Try Chrome!");
       return;
     }
-
     if (isListening) {
       recognitionRef.current?.stop();
       setIsListening(false);
       return;
     }
-
     const SpeechRecognition = (window as any).webkitSpeechRecognition || (window as any).SpeechRecognition;
     const recognition = new SpeechRecognition();
     recognition.lang = "en-US";
     recognition.continuous = false;
     recognition.interimResults = false;
-
     recognition.onresult = (event: any) => {
-      const transcript = event.results[0][0].transcript;
-      setInput(transcript);
+      setInput(event.results[0][0].transcript);
       setIsListening(false);
     };
     recognition.onerror = () => setIsListening(false);
     recognition.onend = () => setIsListening(false);
-
     recognitionRef.current = recognition;
     recognition.start();
     setIsListening(true);
@@ -93,7 +125,6 @@ const ChatInterface = () => {
 
   return (
     <div className="flex flex-col h-[calc(100vh-64px)] max-w-3xl mx-auto">
-      {/* Messages */}
       <div className="flex-1 overflow-y-auto p-4 space-y-4">
         {messages.map((msg) => (
           <ChatBubble key={msg.id} text={msg.text} sender={msg.sender} timestamp={msg.timestamp} />
@@ -108,7 +139,6 @@ const ChatInterface = () => {
         <div ref={messagesEndRef} />
       </div>
 
-      {/* Quick Actions */}
       {messages.length <= 1 && (
         <div className="px-4 pb-2">
           <div className="flex flex-wrap gap-2">
@@ -125,7 +155,6 @@ const ChatInterface = () => {
         </div>
       )}
 
-      {/* Input */}
       <div className="p-4 border-t border-border bg-card/50 backdrop-blur-sm">
         <div className="flex items-center gap-2">
           <button
@@ -143,7 +172,7 @@ const ChatInterface = () => {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && handleSend()}
-            placeholder="Type your question here..."
+            placeholder="Ask, or teach me (e.g. 'our viva is on 30 April')..."
             className="flex-1 bg-muted rounded-full px-4 py-2.5 text-sm outline-none focus:ring-2 focus:ring-primary/40 transition-all"
           />
           <button

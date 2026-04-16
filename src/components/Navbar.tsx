@@ -1,11 +1,16 @@
 import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Menu, X, LogOut, LogIn, User as UserIcon } from "lucide-react";
 import cpuLogo from "@/assets/cpu-logo.png";
 import ThemeToggle from "./ThemeToggle";
+import { useAuth } from "@/contexts/AuthContext";
+import { useToast } from "@/hooks/use-toast";
 
 const Navbar = () => {
   const location = useLocation();
+  const navigate = useNavigate();
+  const { user, signOut } = useAuth();
+  const { toast } = useToast();
   const [open, setOpen] = useState(false);
 
   const links = [
@@ -14,6 +19,13 @@ const Navbar = () => {
     { to: "/history", label: "History" },
     { to: "/contact", label: "Contact" },
   ];
+
+  const handleSignOut = async () => {
+    await signOut();
+    toast({ title: "Signed out 👋" });
+    navigate("/");
+    setOpen(false);
+  };
 
   return (
     <nav className="sticky top-0 z-50 backdrop-blur-xl border-b border-border/50 bg-card/80">
@@ -41,6 +53,27 @@ const Navbar = () => {
             </Link>
           ))}
           <ThemeToggle />
+          {user ? (
+            <div className="flex items-center gap-2 ml-2 pl-2 border-l border-border">
+              <span className="hidden lg:flex items-center gap-1.5 text-xs text-muted-foreground max-w-[160px] truncate">
+                <UserIcon className="w-3.5 h-3.5" />
+                {user.email}
+              </span>
+              <button
+                onClick={handleSignOut}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-muted hover:bg-destructive/10 hover:text-destructive transition-colors"
+              >
+                <LogOut className="w-3.5 h-3.5" /> Logout
+              </button>
+            </div>
+          ) : (
+            <Link
+              to="/auth"
+              className="ml-2 flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium gradient-primary text-primary-foreground shadow-sm hover:shadow-md transition-all"
+            >
+              <LogIn className="w-3.5 h-3.5" /> Sign in
+            </Link>
+          )}
         </div>
 
         {/* Mobile menu button */}
@@ -74,6 +107,26 @@ const Navbar = () => {
                 {link.label}
               </Link>
             ))}
+            <div className="border-t border-border my-1" />
+            {user ? (
+              <>
+                <p className="px-4 py-1.5 text-[11px] text-muted-foreground truncate">{user.email}</p>
+                <button
+                  onClick={handleSignOut}
+                  className="flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium text-destructive hover:bg-destructive/10 transition-colors text-left"
+                >
+                  <LogOut className="w-4 h-4" /> Logout
+                </button>
+              </>
+            ) : (
+              <Link
+                to="/auth"
+                onClick={() => setOpen(false)}
+                className="flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium gradient-primary text-primary-foreground"
+              >
+                <LogIn className="w-4 h-4" /> Sign in / Sign up
+              </Link>
+            )}
           </div>
         </div>
       )}
