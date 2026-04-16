@@ -47,8 +47,9 @@ const HistoryPage = () => {
   const grouped = groupByDay(filtered.slice(0, 50));
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background flex flex-col">
       <Navbar />
+      <div className="flex-1">
       <div className="container mx-auto px-4 py-6 sm:py-8 max-w-3xl">
         <div className="flex items-center justify-between mb-6 gap-3 flex-wrap">
           <div>
