@@ -3,7 +3,8 @@ import { ArrowRight, BookOpen, CreditCard, Building, HelpCircle } from "lucide-r
 import Navbar from "@/components/Navbar";
 import FloatingChatButton from "@/components/FloatingChatButton";
 import botAvatar from "@/assets/bot-avatar.png";
-import heroCampus from "@/assets/hero-campus.jpg";
+import cpuLogo from "@/assets/cpu-logo.png";
+import heroCampus from "@/assets/cpu-campus.webp";
 
 const features = [
   { icon: BookOpen, title: "Academic Help", desc: "Exams, timetable, attendance & more", color: "from-primary to-accent" },
@@ -18,20 +19,27 @@ const HomePage = () => (
 
     {/* Hero */}
     <section className="relative overflow-hidden">
+      {/* Campus background image */}
       <div
-        className="absolute inset-0 bg-cover bg-center opacity-15"
+        className="absolute inset-0 bg-cover bg-center"
         style={{ backgroundImage: `url(${heroCampus})` }}
       />
-      <div className="absolute inset-0 gradient-hero opacity-90" />
-      <div className="relative container mx-auto px-4 py-24 md:py-32 text-center">
-        <img src={botAvatar} alt="CPU Bot" className="w-24 h-24 sm:w-28 sm:h-28 mx-auto mb-6 animate-float" width={512} height={512} />
-        <p className="inline-block px-4 py-1 mb-4 rounded-full bg-card/20 backdrop-blur text-primary-foreground/90 text-xs sm:text-sm font-medium border border-card/20">
-          Official AI Assistant
+      {/* Gradient overlay for readability */}
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/85 via-accent/75 to-secondary/85" />
+      <div className="absolute inset-0 bg-foreground/30" />
+
+      <div className="relative container mx-auto px-4 py-20 md:py-32 text-center">
+        <div className="flex items-center justify-center gap-3 mb-6">
+          <img src={cpuLogo} alt="CPU Logo" className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-card p-1 shadow-xl animate-float" />
+          <img src={botAvatar} alt="CPU Bot" className="w-20 h-20 sm:w-24 sm:h-24 animate-float" style={{ animationDelay: "0.5s" }} width={512} height={512} />
+        </div>
+        <p className="inline-block px-4 py-1 mb-4 rounded-full bg-card/20 backdrop-blur text-primary-foreground text-xs sm:text-sm font-medium border border-card/30">
+          ✨ Official AI Assistant
         </p>
-        <h1 className="font-heading text-3xl sm:text-5xl md:text-6xl font-extrabold text-primary-foreground mb-4 leading-tight px-2">
+        <h1 className="font-heading text-3xl sm:text-5xl md:text-6xl font-extrabold text-primary-foreground mb-4 leading-tight px-2 drop-shadow-lg">
           Career Point University <span className="block sm:inline">Chatbot 🎓</span>
         </h1>
-        <p className="text-base sm:text-lg md:text-xl text-primary-foreground/85 max-w-2xl mx-auto mb-8 px-4">
+        <p className="text-base sm:text-lg md:text-xl text-primary-foreground/95 max-w-2xl mx-auto mb-8 px-4 drop-shadow">
           Get instant, accurate answers about exams, fees, hostel, admissions, placements & campus life — 24/7.
         </p>
         <Link
