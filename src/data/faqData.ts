@@ -166,7 +166,7 @@ export const faqData: FAQ[] = [
     intent: "greeting",
     keywords: ["hi", "hello", "hey", "good", "morning", "afternoon", "evening"],
     patterns: ["hi", "hello", "hey", "good morning", "good afternoon", "hey there"],
-    response: "👋 Hello there! Welcome to **UniBot** — your friendly university assistant! 🎓\n\nI can help you with:\n• 📅 Academic queries & timetables\n• 💰 Fee & payment information\n• 🏠 Hostel details\n• 📋 Admission process\n• 🏫 Campus information\n\nJust type your question or use the quick action buttons below! 😊"
+    response: "👋 Hello there! Welcome to **CPU Bot** — Career Point University's friendly AI assistant! 🎓\n\nI can help you with:\n• 📅 Academic queries & timetables\n• 💰 Fee & payment information\n• 🏠 Hostel details\n• 📋 Admission process\n• 💼 Placements & courses\n• 🏫 Campus information\n\nJust type your question or use the quick action buttons below! 😊"
   },
   {
     id: 23,
