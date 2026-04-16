@@ -23,12 +23,12 @@ const App = () => (
       <BrowserRouter>
         <AuthProvider>
           <Routes>
-            <Route path="/" element={<HomePage />} />
             <Route path="/auth" element={<AuthPage />} />
+            <Route path="/" element={<ProtectedRoute><HomePage /></ProtectedRoute>} />
             <Route path="/chat" element={<ProtectedRoute><ChatPage /></ProtectedRoute>} />
             <Route path="/history" element={<ProtectedRoute><HistoryPage /></ProtectedRoute>} />
             <Route path="/memory" element={<ProtectedRoute><MemoryPage /></ProtectedRoute>} />
-            <Route path="/contact" element={<ContactPage />} />
+            <Route path="/contact" element={<ProtectedRoute><ContactPage /></ProtectedRoute>} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </AuthProvider>
