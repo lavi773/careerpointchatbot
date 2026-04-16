@@ -24,7 +24,7 @@ const AuthPage = () => {
   const { toast } = useToast();
 
   useEffect(() => {
-    if (user) navigate("/chat", { replace: true });
+    if (user) navigate("/", { replace: true });
   }, [user, navigate]);
 
   const handleSubmit = async (e: React.FormEvent) => {
