@@ -5,11 +5,13 @@ import cpuLogo from "@/assets/cpu-logo.png";
 import ThemeToggle from "./ThemeToggle";
 import { useAuth } from "@/contexts/AuthContext";
 import { useToast } from "@/hooks/use-toast";
+import { useUserRole } from "@/hooks/useUserRole";
 
 const Navbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { user, signOut } = useAuth();
+  const { isAdmin } = useUserRole();
   const { toast } = useToast();
   const [open, setOpen] = useState(false);
 
@@ -19,6 +21,7 @@ const Navbar = () => {
     { to: "/history", label: "History" },
     { to: "/memory", label: "Memory" },
     { to: "/contact", label: "Contact" },
+    ...(isAdmin ? [{ to: "/admin/queries", label: "Admin" }] : []),
   ];
 
   const handleSignOut = async () => {
