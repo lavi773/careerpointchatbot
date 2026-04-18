@@ -71,8 +71,16 @@ export interface ChatMessage {
   timestamp: Date;
 }
 
-export function processQuery(input: string): string {
-  if (!input.trim()) return "Please type a question! I'm here to help 😊";
+export interface QueryResult {
+  text: string;
+  matched: boolean;
+  score: number;
+}
+
+export function processQuery(input: string): QueryResult {
+  if (!input.trim()) {
+    return { text: "Please type a question! I'm here to help 😊", matched: true, score: 1 };
+  }
 
   const tokens = tokenize(input);
 
@@ -92,10 +100,35 @@ export function processQuery(input: string): string {
   }
 
   if (bestFaq && bestScore > 0.15) {
-    return bestFaq.response;
+    return { text: bestFaq.response, matched: true, score: bestScore };
   }
 
-  return fallbackResponses[Math.floor(Math.random() * fallbackResponses.length)];
+  return {
+    text: fallbackResponses[Math.floor(Math.random() * fallbackResponses.length)],
+    matched: false,
+    score: bestScore,
+  };
+}
+
+/** Match a question against the dynamic shared_faqs table (admin-curated answers). */
+export function matchSharedFaq(
+  input: string,
+  faqs: { question: string; answer: string; keywords: string[] }[]
+): { answer: string; score: number } | null {
+  if (!faqs.length) return null;
+  const tokens = tokenize(input);
+  let best: { answer: string; score: number } | null = null;
+  for (const f of faqs) {
+    const qTokens = tokenize(f.question);
+    const jaccard = jaccardSimilarity(tokens, qTokens);
+    const kw = f.keywords.length
+      ? tokens.filter((t) => f.keywords.some((k) => k.includes(t) || t.includes(k))).length /
+        f.keywords.length
+      : 0;
+    const score = Math.max(jaccard, kw * 0.8);
+    if (!best || score > best.score) best = { answer: f.answer, score };
+  }
+  return best && best.score > 0.25 ? best : null;
 }
 
 // Chat history storage
