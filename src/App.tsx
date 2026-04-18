@@ -32,6 +32,7 @@ const App = () => (
             <Route path="/history" element={<ProtectedRoute><HistoryPage /></ProtectedRoute>} />
             <Route path="/memory" element={<ProtectedRoute><MemoryPage /></ProtectedRoute>} />
             <Route path="/admin/queries" element={<ProtectedRoute><AdminQueriesPage /></ProtectedRoute>} />
+            <Route path="/admin/site-content" element={<ProtectedRoute><SiteContentPage /></ProtectedRoute>} />
             <Route path="/contact" element={<ProtectedRoute><ContactPage /></ProtectedRoute>} />
             <Route path="*" element={<NotFound />} />
           </Routes>
