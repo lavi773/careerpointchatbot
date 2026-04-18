@@ -10,6 +10,7 @@ import ContactPage from "./pages/ContactPage";
 import AuthPage from "./pages/AuthPage";
 import MemoryPage from "./pages/MemoryPage";
 import AdminQueriesPage from "./pages/AdminQueriesPage";
+import SiteContentPage from "./pages/SiteContentPage";
 import NotFound from "./pages/NotFound";
 import { AuthProvider } from "./contexts/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
