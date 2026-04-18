@@ -9,9 +9,11 @@ import HistoryPage from "./pages/HistoryPage";
 import ContactPage from "./pages/ContactPage";
 import AuthPage from "./pages/AuthPage";
 import MemoryPage from "./pages/MemoryPage";
+import AdminQueriesPage from "./pages/AdminQueriesPage";
 import NotFound from "./pages/NotFound";
 import { AuthProvider } from "./contexts/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
+import ResolvedQueriesNotifier from "./components/ResolvedQueriesNotifier";
 
 const queryClient = new QueryClient();
 
@@ -28,9 +30,11 @@ const App = () => (
             <Route path="/chat" element={<ProtectedRoute><ChatPage /></ProtectedRoute>} />
             <Route path="/history" element={<ProtectedRoute><HistoryPage /></ProtectedRoute>} />
             <Route path="/memory" element={<ProtectedRoute><MemoryPage /></ProtectedRoute>} />
+            <Route path="/admin/queries" element={<ProtectedRoute><AdminQueriesPage /></ProtectedRoute>} />
             <Route path="/contact" element={<ProtectedRoute><ContactPage /></ProtectedRoute>} />
             <Route path="*" element={<NotFound />} />
           </Routes>
+          <ResolvedQueriesNotifier />
         </AuthProvider>
       </BrowserRouter>
     </TooltipProvider>
