@@ -121,8 +121,36 @@ const ChatInterface = () => {
             } else {
               // 3) static FAQ NLP
               const result = processQuery(query);
-              response = result.text;
-              isFallback = !result.matched;
+              if (result.matched) {
+                response = result.text;
+              } else {
+                // 4) RAG over scraped cpur.in pages + Lovable AI
+                try {
+                  const { data, error } = await supabase.functions.invoke("answer-with-rag", {
+                    body: { question: query },
+                  });
+                  if (error) throw error;
+                  if (data?.answer) {
+                    let formatted = data.answer as string;
+                    if (data.grounded && Array.isArray(data.sources) && data.sources.length) {
+                      const links = (data.sources as { title: string; url: string }[])
+                        .slice(0, 3)
+                        .map((s, i) => `[${i + 1}] [${s.title}](${s.url})`)
+                        .join("  ");
+                      formatted += `\n\n📚 ${links}`;
+                    }
+                    response = formatted;
+                    isFallback = !data.grounded;
+                  } else {
+                    response = result.text;
+                    isFallback = true;
+                  }
+                } catch (err) {
+                  console.error("RAG failed", err);
+                  response = result.text;
+                  isFallback = true;
+                }
+              }
             }
           }
         }

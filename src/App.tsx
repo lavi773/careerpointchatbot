@@ -10,6 +10,7 @@ import ContactPage from "./pages/ContactPage";
 import AuthPage from "./pages/AuthPage";
 import MemoryPage from "./pages/MemoryPage";
 import AdminQueriesPage from "./pages/AdminQueriesPage";
+import SiteContentPage from "./pages/SiteContentPage";
 import NotFound from "./pages/NotFound";
 import { AuthProvider } from "./contexts/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -31,6 +32,7 @@ const App = () => (
             <Route path="/history" element={<ProtectedRoute><HistoryPage /></ProtectedRoute>} />
             <Route path="/memory" element={<ProtectedRoute><MemoryPage /></ProtectedRoute>} />
             <Route path="/admin/queries" element={<ProtectedRoute><AdminQueriesPage /></ProtectedRoute>} />
+            <Route path="/admin/site-content" element={<ProtectedRoute><SiteContentPage /></ProtectedRoute>} />
             <Route path="/contact" element={<ProtectedRoute><ContactPage /></ProtectedRoute>} />
             <Route path="*" element={<NotFound />} />
           </Routes>

@@ -21,7 +21,12 @@ const Navbar = () => {
     { to: "/history", label: "History" },
     { to: "/memory", label: "Memory" },
     { to: "/contact", label: "Contact" },
-    ...(isAdmin ? [{ to: "/admin/queries", label: "Admin" }] : []),
+    ...(isAdmin
+      ? [
+          { to: "/admin/queries", label: "Queries" },
+          { to: "/admin/site-content", label: "KB" },
+        ]
+      : []),
   ];
 
   const handleSignOut = async () => {

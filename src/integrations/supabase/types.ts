@@ -79,6 +79,42 @@ export type Database = {
           },
         ]
       }
+      site_content: {
+        Row: {
+          content: string
+          created_at: string
+          id: string
+          scraped_at: string
+          source: string
+          summary: string | null
+          title: string | null
+          updated_at: string
+          url: string
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          id?: string
+          scraped_at?: string
+          source?: string
+          summary?: string | null
+          title?: string | null
+          updated_at?: string
+          url: string
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          id?: string
+          scraped_at?: string
+          source?: string
+          summary?: string | null
+          title?: string | null
+          updated_at?: string
+          url?: string
+        }
+        Relationships: []
+      }
       unresolved_queries: {
         Row: {
           answer: string | null
